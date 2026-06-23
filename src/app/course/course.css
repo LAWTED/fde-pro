@@ -1,0 +1,466 @@
+/* ============================================================
+   /course — FDE 讲座全屏 slide deck (深圳大学 · Lawted)
+   ha7ch 极简浅色。形式蓝本: English of Design / Presentation 1.
+
+   SCOPE 红线: 本文件所有选择器都挂在 `.course-root` / `.deck` 容器内。
+   - 绝不出现裸元素选择器 (body / section / p / a / *) 作为全局规则。
+   - 绝不改 :root 变量 (那会泄漏到 globals.css 的落地页与 /c 卡片)。
+   - course 自己的变量都加 `--c-` 前缀, 只在 .course-root 内声明。
+   不污染 globals.css / page.tsx / c/。
+   ============================================================ */
+
+.course-root {
+  --c-bg: #fdfdfc;
+  --c-color: #111;
+  --c-muted: rgba(0, 0, 0, 0.4);
+  --c-rule: #f2f2f2;
+  --c-link-rule: #d9d9d9;
+  --c-focus: rgba(0, 122, 255, 0.5);
+  --c-ph-border: #e3e3e1;
+  --c-ph-bg: #fbfbfa;
+
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: var(--c-bg);
+  color: var(--c-color);
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", "PingFang SC",
+    "Microsoft YaHei", sans-serif;
+  font-weight: 460;
+  font-size: 0.875rem;
+  line-height: 1.25;
+  letter-spacing: -0.0056rem;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow: hidden;
+}
+
+.course-root *,
+.course-root *::before,
+.course-root *::after {
+  box-sizing: border-box;
+}
+
+/* ---- deck ---- */
+.course-root .deck {
+  position: relative;
+  width: 100vw;
+  height: 100svh;
+  height: 100vh;
+}
+
+.course-root .slide {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100svh;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(3.2rem, 5vh, 4.4rem) clamp(2rem, 6vw, 6rem);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.55s ease;
+  pointer-events: none;
+  cursor: pointer;
+}
+
+.course-root .slide.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 2;
+}
+
+/* ---- layout ---- */
+.course-root .col {
+  width: 100%;
+  max-width: min(1300px, 94vw);
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+/* a centered, extra-airy column for the big-statement / climax slides */
+.course-root .col.center {
+  align-items: center;
+  text-align: center;
+  gap: 1.3rem;
+}
+
+/* ---- type ---- */
+.course-root .head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.course-root .title {
+  font-weight: 540;
+  font-size: clamp(1.35rem, 3.2vw, 2rem);
+  line-height: 1.15;
+  letter-spacing: -0.018em;
+  color: var(--c-color);
+}
+
+/* the all-white peak slides (满分时刻 / 终极金句): bigger, calmer */
+.course-root .title.big {
+  font-weight: 540;
+  font-size: clamp(1.9rem, 5vw, 3.4rem);
+  line-height: 1.12;
+  letter-spacing: -0.022em;
+  max-width: 22ch;
+}
+
+.course-root .sub {
+  font-weight: 460;
+  font-size: 0.9375rem;
+  color: var(--c-muted);
+  max-width: 60ch;
+}
+
+.course-root .col.center .sub {
+  max-width: 52ch;
+}
+
+/* the spoken-quote line: near-black, slightly larger, stands alone */
+.course-root .quote {
+  font-weight: 540;
+  font-size: clamp(1.05rem, 2.2vw, 1.45rem);
+  line-height: 1.3;
+  letter-spacing: -0.014em;
+  color: var(--c-color);
+  max-width: 50ch;
+  margin-top: 0.4rem;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--c-color);
+}
+
+.course-root .col.center .quote {
+  border-left: 0;
+  padding-left: 0;
+  margin-top: 0;
+}
+
+/* small eyebrow above a title (e.g. 章节序号 / 高潮提示) */
+.course-root .eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+  font-weight: 540;
+}
+
+/* ---- lists / two-column points ---- */
+.course-root .points {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-top: 0.4rem;
+}
+
+.course-root .points li {
+  list-style: none;
+  font-size: clamp(0.9375rem, 1.5vw, 1.05rem);
+  line-height: 1.4;
+  color: var(--c-color);
+  padding-left: 1.1rem;
+  position: relative;
+  max-width: 64ch;
+}
+
+.course-root .points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--c-color);
+}
+
+.course-root .points li .lead {
+  font-weight: 540;
+}
+
+.course-root .points li .dim {
+  color: var(--c-muted);
+}
+
+/* two-up comparison (Echo|Delta, 土|大厂) */
+.course-root .two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+  margin-top: 0.6rem;
+}
+
+.course-root .cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--c-rule);
+}
+
+.course-root .cell h3 {
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  font-weight: 540;
+  letter-spacing: -0.016em;
+}
+
+.course-root .cell p {
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  color: var(--c-muted);
+}
+
+.course-root .cell .accent {
+  color: var(--c-color);
+}
+
+/* checklist (自检三行) */
+.course-root .check {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-top: 0.6rem;
+}
+
+.course-root .check li {
+  list-style: none;
+  font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+  line-height: 1.35;
+  padding-left: 1.6rem;
+  position: relative;
+  max-width: 62ch;
+}
+
+.course-root .check li::before {
+  content: "?";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.15rem;
+  height: 1.15rem;
+  border: 1px solid var(--c-link-rule);
+  border-radius: 50%;
+  font-size: 0.72rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-muted);
+}
+
+/* big stat (提效 80% / 降本 64%) */
+.course-root .stats {
+  display: flex;
+  gap: clamp(2rem, 6vw, 4.5rem);
+  margin-top: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.course-root .stat .n {
+  font-size: clamp(2.6rem, 7vw, 4.6rem);
+  font-weight: 540;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.course-root .stat .l {
+  font-size: 0.875rem;
+  color: var(--c-muted);
+  margin-top: 0.3rem;
+}
+
+/* ---- figure / frame placeholder ---- */
+.course-root .figure {
+  margin-top: 0.5rem;
+  border-top: 1px solid var(--c-rule);
+}
+
+.course-root .frame {
+  position: relative;
+  width: 100%;
+  max-height: 60svh;
+  max-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--c-bg);
+  padding: 0.4rem 0;
+}
+
+.course-root .ph {
+  width: 100%;
+  min-height: 38vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px dashed var(--c-ph-border);
+  background: var(--c-ph-bg);
+}
+
+.course-root .ph span {
+  color: var(--c-muted);
+  font-weight: 460;
+  font-size: 0.8125rem;
+  letter-spacing: -0.0056rem;
+  padding: 1.5rem;
+  max-width: 50ch;
+}
+
+/* ---- 待定制 占位 (讲者下周精修) ---- */
+.course-root .todo {
+  margin-top: 0.7rem;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: var(--c-muted);
+  border: 1px dashed var(--c-ph-border);
+  background: var(--c-ph-bg);
+  border-radius: 4px;
+  padding: 0.45rem 0.65rem;
+  max-width: 64ch;
+}
+
+.course-root .todo b {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.55);
+  white-space: nowrap;
+}
+
+/* ---- progress (右上页码 + 圆点) ---- */
+.course-root .progress {
+  position: fixed;
+  top: clamp(1.4rem, 3vw, 2.2rem);
+  right: clamp(1.4rem, 3vw, 2.2rem);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--c-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.course-root .dots {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.course-root .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--c-link-rule);
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: background 0.35s ease, transform 0.35s ease;
+}
+
+.course-root .dot:hover {
+  background: #999;
+}
+
+.course-root .dot:focus-visible {
+  outline: 2px solid var(--c-focus);
+  outline-offset: 3px;
+}
+
+.course-root .dot.on {
+  background: var(--c-color);
+  transform: scale(1.15);
+}
+
+/* ---- footer credit (左上) ---- */
+.course-root .credit {
+  position: fixed;
+  left: clamp(1.4rem, 3vw, 2.2rem);
+  top: clamp(1.4rem, 3vw, 2.2rem);
+  z-index: 50;
+  color: var(--c-muted);
+  font-size: 0.72rem;
+  letter-spacing: -0.0056rem;
+  font-weight: 460;
+}
+
+/* ---- hint (底部提示: ← → 翻页) ---- */
+.course-root .hint {
+  position: fixed;
+  left: 50%;
+  bottom: clamp(1rem, 2.4vw, 1.6rem);
+  transform: translateX(-50%);
+  z-index: 50;
+  color: var(--c-muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  font-weight: 460;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ---- stagger-in ---- */
+.course-root .slide.active .stagger {
+  animation: course-rise 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+.course-root .slide.active .stagger:nth-child(1) { animation-delay: 0s; }
+.course-root .slide.active .stagger:nth-child(2) { animation-delay: 0.05s; }
+.course-root .slide.active .stagger:nth-child(3) { animation-delay: 0.1s; }
+.course-root .slide.active .stagger:nth-child(4) { animation-delay: 0.15s; }
+.course-root .slide.active .stagger:nth-child(5) { animation-delay: 0.2s; }
+.course-root .slide.active .stagger:nth-child(6) { animation-delay: 0.25s; }
+
+@keyframes course-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 640px) {
+  .course-root .slide {
+    padding: 1.8rem 1.4rem;
+    align-items: center;
+  }
+  .course-root .col {
+    gap: 0.95rem;
+    justify-content: center;
+  }
+  .course-root .two {
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+  .course-root .stats {
+    gap: 2rem;
+  }
+  .course-root .credit {
+    display: none;
+  }
+  .course-root .hint {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .course-root .slide {
+    transition: none;
+  }
+  .course-root .slide.active .stagger {
+    animation: none;
+  }
+  .course-root .dot {
+    transition: none;
+  }
+}

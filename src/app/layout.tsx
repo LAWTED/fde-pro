@@ -23,8 +23,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="zh">
       <head>
+        {/* Inter — landing page (ha7ch editorial). Chakra Petch / Geist Mono
+            stay for the /c holographic card route — do not remove them. */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Serif+SC:wght@400;700&family=Geist+Mono&family=Chakra+Petch:wght@400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;460;540;600&family=Playfair+Display:wght@400;700&family=Noto+Serif+SC:wght@400;700&family=Geist+Mono&family=Chakra+Petch:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>
