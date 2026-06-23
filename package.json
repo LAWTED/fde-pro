@@ -9,18 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "holographic-sticker": "^1.0.4",
+    "lucide-react": "^0.500.0",
     "next": "^16.2.0",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "lucide-react": "^0.500.0"
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.0",
     "@types/node": "^20.11.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
-    "typescript": "^5.4.0",
+    "postcss": "^8.5.0",
     "tailwindcss": "^4.3.0",
-    "@tailwindcss/postcss": "^4.3.0",
-    "postcss": "^8.5.0"
+    "typescript": "^5.4.0"
   }
 }

@@ -1,0 +1,18 @@
+<svg width="600" height="78" viewBox="0 0 600 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+<!-- watermark tile: tight HA7CH logo + horizontal padding so tiled logos
+     don't sit shoulder-to-shoulder (loosens the horizontal repeat a touch) -->
+<g transform="translate(56.5,0)" fill="#ffffff">
+  <rect y="9" width="16.2025" height="60"/>
+  <rect x="16.2025" y="45.7814" width="14" height="47.5949" transform="rotate(-90 16.2025 45.7814)"/>
+  <rect x="63.7975" y="9" width="16.2025" height="60"/>
+  <path d="M132.033 15H148.912L109.879 63H93L132.033 15Z"/>
+  <path d="M149.967 15H133.088L172.121 63H189L149.967 15Z"/>
+  <path d="M295 12.9226L276.84 12.9226L208.5 78H232.62L295 12.9226Z"/>
+  <path d="M308.5 0H214.5L202 13.0774H295L308.5 0Z"/>
+  <path d="M321.5 31.5976V45.2308L387.12 25.6331L393.5 12L321.5 31.5976Z"/>
+  <path d="M321.5 45.7899V31.7308L387.12 51.9408L393.5 66L321.5 45.7899Z"/>
+  <rect x="406.5" y="9" width="16.2025" height="60"/>
+  <rect x="422.702" y="45.7814" width="14" height="47.5949" transform="rotate(-90 422.702 45.7814)"/>
+  <rect x="470.297" y="9" width="16.2025" height="60"/>
+</g>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 480" fill="none">
+  <!-- Δ watermark — echoes the Echo × Delta core; refracts under the holographic layer -->
+  <g stroke="#ffffff" stroke-width="2.5" opacity="0.45">
+    <path d="M180 96 L312 372 L48 372 Z" />
+  </g>
+  <g fill="#ffffff" opacity="0.32">
+    <path d="M180 168 L260 332 L100 332 Z" />
+  </g>
+  <g fill="#ffffff" opacity="0.5">
+    <path d="M180 214 L224 306 L136 306 Z" />
+  </g>
+  <!-- corner accents -->
+  <g fill="#ffffff" opacity="0.22">
+    <path d="M44 54 L66 98 L22 98 Z" />
+    <path d="M322 70 L340 106 L304 106 Z" />
+    <path d="M40 414 L60 454 L20 454 Z" />
+    <path d="M330 410 L350 450 L310 450 Z" />
+  </g>
+</svg>

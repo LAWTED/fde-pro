@@ -1,0 +1,453 @@
+/* ============================================================
+   FDE 全息卡片样式 — SCOPED to `.fde-stage`.
+
+   IMPORTANT: this file is imported ONLY on the /c card route
+   (via src/app/c/layout.tsx). All card-specific CSS variables
+   (--ink / --paper / --echo / --delta / --line / --font-disp …)
+   are defined on the `.fde-stage` scope container — NOT on :root —
+   so they never override the landing page's globals.css
+   (--echo / --delta / --font-mono live there with different values).
+
+   There are deliberately NO bare `:root {}` or `html, body {}`
+   rules here; those belong to the landing page globals.css.
+   ============================================================ */
+
+.fde-stage {
+  /* card palette — obsidian + cold laser foil (scoped, NOT global) */
+  --ink: #06070b;
+  --paper: #eef1fb;
+  --echo: #6ee7e0;
+  --delta: #f5b8fb;
+  --line: rgba(238, 241, 251, 0.1);
+
+  /* Chakra Petch is loaded via <link> in the root layout, so point
+     --font-disp straight at the family name (no next/font var). */
+  --font-disp: "Chakra Petch", system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", monospace;
+  --font-sans: -apple-system, "PingFang SC", "Microsoft YaHei", system-ui,
+    sans-serif;
+
+  /* the card route owns its own dark canvas, scoped here */
+  background: #050609;
+  color: #eef1fb;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ============================================================
+   FDE 全息卡片 — obsidian black card + cold laser foil.
+   The holographic-sticker library makes the card a container
+   (container-type: inline-size); everything is sized in `cqi`
+   (1cqi = 1% of card width) so it scales with the card.
+   ============================================================ */
+
+/* Layer 0 — abstract obsidian base */
+.fde-stage .fde-base {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: var(--sticker-card-border-radius, 7cqi);
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgba(110, 231, 224, 0.14), transparent 55%),
+    radial-gradient(90% 70% at 100% 108%, rgba(245, 184, 251, 0.12), transparent 55%),
+    linear-gradient(168deg, #0a0c12 0%, #06070b 46%, #04050a 100%);
+}
+/* a single hairline of cold light that drifts with the pointer */
+.fde-stage .fde-base::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    60% 50% at calc(50% + var(--sticker-pointer-x, 0) * 40%)
+      calc(36% + var(--sticker-pointer-y, 0) * 40%),
+    rgba(174, 248, 255, 0.16) 0%,
+    rgba(120, 180, 255, 0.06) 30%,
+    transparent 62%
+  );
+  mix-blend-mode: screen;
+  opacity: 0.7;
+}
+
+/* Layer — fine grain */
+.fde-stage .fde-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  border-radius: var(--sticker-card-border-radius, 7cqi);
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ── content ─────────────────────────────────────────────── */
+.fde-stage .fde-face {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  padding: 7.5cqi 7cqi 6.5cqi;
+  gap: 3.4cqi;
+  color: var(--paper);
+  font-family: var(--font-sans);
+}
+
+/* top row */
+.fde-stage .fde-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.fde-stage .fde-handle {
+  font-family: var(--font-mono);
+  font-size: 3cqi;
+  letter-spacing: 0.02em;
+  color: rgba(238, 241, 251, 0.55);
+}
+.fde-stage .fde-kind {
+  font-family: var(--font-disp);
+  font-weight: 700;
+  font-size: 6.4cqi;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  color: var(--echo);
+  text-shadow: 0 0 4cqi rgba(110, 231, 224, 0.4);
+}
+
+.fde-stage .fde-rule {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--line) 12%,
+    var(--line) 88%,
+    transparent
+  );
+}
+
+/* verdict eyebrow */
+.fde-stage .fde-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1.4cqi;
+  font-size: 2.7cqi;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(238, 241, 251, 0.62);
+}
+.fde-stage .fde-eyebrow::before {
+  content: "";
+  width: 1.4cqi;
+  height: 1.4cqi;
+  border-radius: 50%;
+  background: var(--echo);
+  box-shadow: 0 0 2cqi var(--echo);
+}
+
+/* hero score */
+.fde-stage .fde-hero {
+  display: flex;
+  align-items: flex-end;
+  gap: 4cqi;
+}
+.fde-stage .fde-score {
+  font-family: var(--font-disp);
+  font-weight: 700;
+  font-size: 26cqi;
+  line-height: 0.78;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(176deg, #ffffff 8%, #cdd6ef 52%, #8fa0cb 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0.4cqi 2.6cqi rgba(174, 220, 255, 0.28));
+}
+.fde-stage .fde-score-max {
+  font-size: 5cqi;
+  font-weight: 500;
+  margin-left: 1cqi;
+  -webkit-text-fill-color: rgba(238, 241, 251, 0.34);
+}
+.fde-stage .fde-hero-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1cqi;
+  padding-bottom: 2.2cqi;
+}
+.fde-stage .fde-quad {
+  font-family: var(--font-disp);
+  font-size: 3.6cqi;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+  gap: 1.2cqi;
+}
+.fde-stage .fde-quad .echo {
+  color: var(--echo);
+  font-style: normal;
+}
+.fde-stage .fde-quad .delta {
+  color: var(--delta);
+  font-style: normal;
+}
+.fde-stage .fde-quad em {
+  color: rgba(238, 241, 251, 0.35);
+  font-style: normal;
+}
+.fde-stage .fde-raw {
+  font-family: var(--font-mono);
+  font-size: 2.5cqi;
+  color: rgba(238, 241, 251, 0.45);
+}
+.fde-stage .fde-sub {
+  font-size: 2.7cqi;
+  font-weight: 500;
+  line-height: 1.3;
+  color: rgba(238, 241, 251, 0.82);
+  max-width: 40cqi;
+}
+
+/* seven dimensions */
+.fde-stage .fde-dims {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 5cqi;
+  row-gap: 2.4cqi;
+}
+.fde-stage .fde-dim:nth-child(7) {
+  grid-column: 1 / -1;
+}
+.fde-stage .fde-dim-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1cqi;
+}
+.fde-stage .fde-dim-label {
+  font-size: 2.5cqi;
+  font-weight: 500;
+  color: rgba(238, 241, 251, 0.78);
+}
+.fde-stage .fde-dim-val {
+  font-family: var(--font-disp);
+  font-size: 2.7cqi;
+  font-weight: 600;
+  color: var(--paper);
+  font-variant-numeric: tabular-nums;
+}
+.fde-stage .fde-dim-val i {
+  font-style: normal;
+  font-weight: 400;
+  color: rgba(238, 241, 251, 0.38);
+}
+.fde-stage .fde-dim-track {
+  height: 1cqi;
+  border-radius: 99px;
+  background: rgba(238, 241, 251, 0.09);
+  overflow: hidden;
+}
+.fde-stage .fde-dim-fill {
+  height: 100%;
+  border-radius: 99px;
+  background: linear-gradient(90deg, var(--echo), var(--delta));
+  box-shadow: 0 0 1.4cqi rgba(110, 231, 224, 0.45);
+}
+
+/* route badge */
+.fde-stage .fde-route {
+  align-self: flex-start;
+  font-size: 2.5cqi;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 1.1cqi 2.8cqi;
+  border-radius: 99px;
+  color: rgba(238, 241, 251, 0.86);
+  border: 1px solid var(--line);
+  background: rgba(238, 241, 251, 0.04);
+}
+
+/* signature */
+.fde-stage .fde-sig {
+  margin-top: auto;
+  padding: 3cqi 3.2cqi;
+  border-radius: 3cqi;
+  border: 1px solid var(--line);
+  background: rgba(238, 241, 251, 0.035);
+}
+.fde-stage .fde-sig-k {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 2.1cqi;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--echo);
+  margin-bottom: 1cqi;
+  opacity: 0.85;
+}
+.fde-stage .fde-sig-b {
+  font-size: 2.7cqi;
+  font-weight: 500;
+  line-height: 1.4;
+  color: rgba(238, 241, 251, 0.9);
+  margin: 0;
+}
+
+/* footer */
+.fde-stage .fde-foot {
+  display: flex;
+  align-items: center;
+  gap: 2.8cqi;
+  font-family: var(--font-mono);
+  font-size: 2.3cqi;
+  color: rgba(238, 241, 251, 0.42);
+}
+.fde-stage .fde-foot-card {
+  margin-left: auto;
+  color: var(--echo);
+  opacity: 0.95;
+}
+
+/* ============================================================
+   Stage (the page that frames the card)
+   ============================================================ */
+.fde-stage.stage,
+.fde-stage .stage {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 4rem 1.5rem;
+  overflow: hidden;
+}
+.fde-stage .stage-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(55% 45% at 50% 36%, rgba(110, 231, 224, 0.12), transparent 70%),
+    radial-gradient(48% 38% at 76% 72%, rgba(245, 184, 251, 0.1), transparent 70%);
+  pointer-events: none;
+}
+.fde-stage .stage-card {
+  position: relative;
+  z-index: 1;
+}
+.fde-stage .stage-skeleton {
+  width: 380px;
+  height: 507px;
+  border-radius: 28px;
+  background: linear-gradient(168deg, #0a0c12, #06070b);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.fde-stage .stage-caption {
+  position: relative;
+  z-index: 1;
+  font-size: 0.8rem;
+  color: rgba(238, 241, 251, 0.45);
+  text-align: center;
+}
+.fde-stage .stage-brand {
+  position: relative;
+  z-index: 1;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: rgba(238, 241, 251, 0.3);
+  text-transform: uppercase;
+}
+.fde-stage .stage-brand span {
+  color: rgba(110, 231, 224, 0.75);
+  font-weight: 600;
+}
+
+/* ============================================================
+   Empty / 404 state
+   ============================================================ */
+.fde-stage.empty,
+.fde-stage .empty {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 4rem 1.5rem;
+  text-align: center;
+  overflow: hidden;
+}
+.fde-stage .empty-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(
+    50% 40% at 50% 40%,
+    rgba(110, 231, 224, 0.14),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+.fde-stage .empty-badge {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  padding: 0.35rem 0.9rem;
+  border-radius: 99px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(238, 241, 251, 0.6);
+}
+.fde-stage .empty-title {
+  position: relative;
+  z-index: 1;
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+.fde-stage .empty-title span {
+  font-family: var(--font-mono);
+  background: linear-gradient(120deg, #6ee7e0, #f5b8fb);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.fde-stage .empty-body {
+  position: relative;
+  z-index: 1;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(238, 241, 251, 0.6);
+  max-width: 28rem;
+}
+.fde-stage .empty-body code {
+  font-family: var(--font-mono);
+  color: #a5f0ec;
+  background: rgba(110, 231, 224, 0.1);
+  padding: 0.1rem 0.4rem;
+  border-radius: 6px;
+}
+.fde-stage .empty-cta {
+  position: relative;
+  z-index: 1;
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #06070b;
+  padding: 0.7rem 1.4rem;
+  border-radius: 99px;
+  background: linear-gradient(100deg, #6ee7e0, #f5b8fb);
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.fde-stage .empty-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(110, 231, 224, 0.3);
+}
