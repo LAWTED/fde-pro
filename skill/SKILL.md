@@ -342,11 +342,24 @@ npx @ha7ch/job-pro@latest find "AI 落地" --text
 
 诊断给完顺势收尾。三个动作**逐个问、跟着用户兴趣走**，要哪个做哪个。顺序建议：**卡片（即时爽点，先给）→ cv（实用）→ 上传意向（留资）**。
 
-**① FDE 全息卡片（`fde.ha7ch.tech/{handle}`）**
-一张可晒的卡：总分 + 象限 + 招牌战绩 + 七维迷你可视化，全息质感（像球星卡/会员卡）。产品在建——本地 `~/dev/fde-card`（Next + `holographic-sticker` 组件库）。现在能做：把诊断结果整理成卡片数据喂给 fde-card 渲染预览，字段 `{ handle, name, verdict, quadrant, score, scoreMax:100, dimensions:[{key,label,score,max}], route, signature, links }`，写到 `~/dev/fde-card/data/{handle}.json`，`npm run dev` 本地预览。上线后即 `fde.ha7ch.tech/{handle}` 分享页。话术："要不要给你出一张 FDE 卡？能晒朋友圈/小红书那种。"（**无真实战绩时 signature 留空或写一句诊断口径的真话，不得编造；<50 分 / 被判"现在不适合"者，卡片以诚实 verdict 为主，如"尚未成为 FDE · 缺 Delta"，并提示这是"现状/起点卡"不是"FDE 资格卡"。**）
+**① FDE 全息卡片（已上线 · `fde.ha7ch.com/c/{handle}`）**
+一张可晒的卡：总分 + 象限 + 招牌战绩 + 七维迷你可视化，全息质感（像球星卡/会员卡）。卡片页已上线在 fde-pro 网站，路由 `fde.ha7ch.com/c/{handle}`（仓库 `~/dev/fde-pro`，`holographic-sticker` 组件库）。做法：把诊断结果整理成卡片数据 `{ handle, name, verdict, quadrant, score, scoreMax:100, dimensions:[{key,label,score,max}], route, signature, links }`，写到 `~/dev/fde-pro/data/{handle}.json`，部署后即 `fde.ha7ch.com/c/{handle}` 分享页（本地 `npm run dev` 可先预览）。话术："要不要给你出一张 FDE 卡？能晒朋友圈/小红书那种。"（**无真实战绩时 signature 留空或写一句诊断口径的真话，不得编造；<50 分 / 被判"现在不适合"者，卡片以诚实 verdict 为主，如"尚未成为 FDE · 缺 Delta"，并提示这是"现状/起点卡"不是"FDE 资格卡"。**）
 
-**② cv.ha7ch.com 在线简历（调 cv-pro）**
-顺手把简历变活页面：触发 **cv-pro**（`npx @ha7ch/cv-pro@latest`）—— `register <handle>` → `update` 简历 → 得到 `cv.ha7ch.com/{handle}`。再按诊断出的目标存**定向变体**（如 `set-variant openai`），把简历改成 FDE 叙事（现金流动词、客户结果、I-not-we——见第六节⑥与 reference 文件）。话术："要不要顺手把简历做成在线版？还能给 OpenAI / 飞书这类目标各存一版定向的。"
+**② cv.ha7ch.com 动态在线简历（调 cv-pro · 让简历真能投出去）**
+把死的 PDF 变成一个活的简历网站 `cv.ha7ch.com/{handle}`，而且能给不同目标公司各存一版**定向变体**——这是投 FDE 岗最实用的点：同一份底，给 OpenAI / 飞书 / 某家车队各改一版叙事再投，而不是一份 PDF 海投。
+
+**真实用法（按 cv-pro README，别臆造命令）：**
+1. 让用户去 **`cv.ha7ch.com` 网页认领一个 handle**，复制它给的 `cv_pat_...` token（CLI 不能 register，必须先网页认领拿 token）。
+2. 你（正在跑 skill 的 Claude）直接读用户刚给的 PDF/简历，按第六节⑥ + reference 改成 FDE 叙事（现金流动词、客户结果、I-not-we），整理成 `resume.json`。
+3. 用 token 把简历传上去并发布：
+```bash
+CV_TOKEN=cv_pat_... npx @ha7ch/cv-pro@latest update resume.json
+CV_TOKEN=cv_pat_... npx @ha7ch/cv-pro@latest get --variant=openai   # 按目标公司取/存定向变体
+CV_TOKEN=cv_pat_... npx @ha7ch/cv-pro@latest open                    # 打开 cv.ha7ch.com/{handle}
+```
+（也可走 MCP：`claude mcp add cv --transport http https://cv.ha7ch.com/api/mcp --header "Authorization: Bearer cv_pat_..."`。）**子命令面以 `npx @ha7ch/cv-pro@latest --help` 实际输出为准，别照搬可能过时的子命令。**
+
+话术（征询，不强推）："要不要顺手把简历做成在线动态版？cv.ha7ch.com 上认领个名字、拿个 token，我就能把你这份简历改成 FDE 叙事直接发布成一个网页——好处是能直接投，还能给每个目标公司各存一版定向的。"
 
 **③ 简历交给 HA7CH 做岗位/企业资源匹配（后端在建，先占位收集意向）**
 **诚实话术，绝不空许诺"能帮你匹配到岗"**："匹配引擎还在建，现在还不能真帮你投。你愿意的话，我先把你的画像 + 意向记下来，等 HA7CH 的 FDE 岗位库上线优先通知你。" 征得同意后存到本地占位 `~/.fde-pro/leads.json`，字段：`handle / 诊断分 / 路线(土|大厂) / 目标城市 / 目标公司类型 / 是否同意被联系 / 时间戳`。**这是收集意向，不是匹配**；不要假装已经在匹配。
