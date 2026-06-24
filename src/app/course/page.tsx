@@ -12,18 +12,20 @@
         不碰 globals.css / page.tsx / c/。
 
    ============================================================
-   待讲者下周精修的 5 个点 (全部用页面可见 .todo 占位 + 本注释双标, 别编死):
-   {{待定制·1 核心takeaway}}   → S04 主定理 & S18 收尾金句
-   {{待定制·2 故事vs方法论比例}} → S04 (偏方法论则放慢) / 当前初稿约故事60% 方法40%
-   {{待定制·3 听众背景与行动}}   → S16 第一步 (暑假找现场 / 扫码诊断 / 加群)
-   {{待定制·4 非名校能否做FDE}}  → S07 机会论 & S14 三张牌 的基调松紧
-   {{待定制·5 时长/形式/现场demo/金句}} → S08 后 demo 占位 + S01/S18 金句
+   讲者 Lawted 已定稿的 5 个点 (占位全部填实, 不再有 .todo):
+   1 核心takeaway → S04 主定理 & S18 收尾金句:
+     「未来的程序员都会变成 FDE, 人的 scope 会越来越大;
+      高主动性需要主动培养——无论软技能还是硬技能。」
+   2 故事 → 货代(Shipform) + 车队 两段亲身 FDE 经历 (S03/S05/S09/S10/S11/S13)
+   3 行动 → S16: 鼓励学生都去试一次、做一次 FDE、去体验
+   4 基调 → 鼓励下场、降门槛, 但保留诚实 (缺 Echo/Delta 就不是 FDE)
+   5 形式 → 不做现场 demo (货代系统不能给大家看), 全部口述描述, 无 live demo 页
    ============================================================ */
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./course.css";
 
-const TOTAL = 18;
+const TOTAL = 20;
 
 function pad(n: number) {
   return (n < 10 ? "0" : "") + n;
@@ -96,10 +98,6 @@ export default function CoursePage() {
         <p className="sub stagger">
           我把一张真实提单 PDF，拖进了我自己做的那个东西。它当场把那张纸，变成了一行行结构化字段。坐我旁边那个跟单的姐姐，盯着屏幕看了三秒——然后脱口而出一句话。
         </p>
-        <div className="todo stagger">
-          <b>{`{{待定制·5 金句/形式}}`}</b>
-          <span>讲者本人定开场用哪个 hook（故事冷开场 / 反噱头 / 对赌提问），以及要不要现场真机拖一张提单 PDF 演示。</span>
-        </div>
       </div>
     </div>,
 
@@ -167,12 +165,13 @@ export default function CoursePage() {
       <p className="quote stagger">
         只会 Echo，你是咨询师；只会 Delta，你做的是别人喂的错需求；只会上台讲、东西跑不起来，你是卖 demo 的人。三种都不是 FDE。
       </p>
-      <div className="todo stagger">
-        <b>{`{{待定制·1 核心takeaway · 2 故事vs方法论比例}}`}</b>
-        <span>
-          若讲者想偏方法论：这页放慢、停顿提问；若想偏故事：可压成一句话 + 一张图。本场唯一想让学生带走的那句话也可锁在这里。
-        </span>
-      </div>
+      <p className="sub stagger">
+        今天你只要带走一句话：
+        <b className="hl">
+          {" "}
+          未来的程序员，都会变成 FDE——人的 scope（你能管的事）会越来越大；而高主动性，是要你主动去培养的，软技能、硬技能都一样。
+        </b>
+      </p>
     </div>,
 
     /* ---- S05 · 拆 Echo ---- */
@@ -263,10 +262,33 @@ export default function CoursePage() {
       <p className="quote stagger">
         大厂工程师手里有最好的锤子，却找不到钉子；你们钉子满地都是（身边的小老板），只是还没弯下腰去捡。
       </p>
-      <div className="todo stagger">
-        <b>{`{{待定制·4 非名校能否做FDE}}`}</b>
-        <span>讲者本人定调：“普通院校反而更适合土 FDE” 还是更克制。此页措辞按最终定调微调。</span>
+      <p className="sub stagger">
+        所以这不是名校 / 非名校的问题。门口没人排队，恰好你能进去——普通院校的你，反而更适合先下场试一次。
+      </p>
+    </div>,
+
+    /* ---- S07b · FDE 是头部大厂正在发生的真实趋势 (PM-as-FDE + 新人 FDE 试练) ---- */
+    <div className="col" key="s07b">
+      <div className="head">
+        <div className="eyebrow stagger">这不是我一个人的判断</div>
+        <h1 className="title stagger">头部大厂已经在这么干了——FDE 是正在发生的真实趋势</h1>
+        <p className="sub stagger">
+          别以为这只是个新概念。我观察到杭州的大厂，已经在两头同时往 FDE 上靠（注意：这说的都是 ToB 企业）。
+        </p>
       </div>
+      <ul className="points">
+        <li className="stagger">
+          <span className="lead">一头：把 PM 当 FDE 用。</span>
+          <span className="dim"> 产品经理被推到客户现场，自己摸需求、自己推进交付，而不是只写文档等开发。</span>
+        </li>
+        <li className="stagger">
+          <span className="lead">另一头：把新入职的技术，先丢去做一段 FDE 试练。</span>
+          <span className="dim"> 原因有三：① 他们认定这些新人以后也会变成 FDE；② 借驻场把新人的沟通能力练出来；③ 内部老技术“盘不动”、不愿出差驻场，只能让新人先上。</span>
+        </li>
+      </ul>
+      <p className="quote stagger">
+        现实启示：先攒一两段 FDE 经历，会让你更容易进这些大厂——不管进去之后是做技术还是做 FDE。那两段经历，就是实打实的敲门砖。
+      </p>
     </div>,
 
     /* ---- S08 · 满分尺子 (全场高潮, 留白多) ---- */
@@ -274,15 +296,11 @@ export default function CoursePage() {
       <div className="head">
         <div className="eyebrow stagger">满分尺子 · 全场高潮</div>
         <h1 className="title big stagger">
-          怎么知道你做的算不算 FDE？拖一张真实提单 PDF 进去。
+          怎么知道你做的算不算 FDE？把一张真实提单 PDF 喂进去。
         </h1>
         <p className="sub stagger">
-          当场解析成结构化字段（哪怕有错、有缺），让一线脱口而出“这能帮到我们”。四个关键词缺一不可：薄切片 · 真实单据 · 当场可验 · 有真实一线（外部）用户。
+          它当场解析成结构化字段（哪怕有错、有缺），让一线脱口而出“这能帮到我们”——这就是满分。四个关键词缺一不可：薄切片 · 真实单据 · 当场可验 · 有真实一线（外部）用户。
         </p>
-        <div className="todo stagger">
-          <b>{`{{待定制·3+5 现场 demo}}`}</b>
-          <span>讲者决定要不要真的现场拖一个 PDF 演示。要 demo → 这页后插一页放实拍；不 demo → 用静态截图。</span>
-        </div>
       </div>
     </div>,
 
@@ -319,26 +337,32 @@ export default function CoursePage() {
       </p>
     </div>,
 
-    /* ---- S10 · 我做了什么 · Delta ---- */
+    /* ---- S10 · 我做了什么 · Delta (口述, 不做现场 demo) ---- */
     <div className="col" key="s10">
       <div className="head">
         <div className="eyebrow stagger">我的故事 · Delta</div>
         <h1 className="title stagger">一个人，做了三样东西</h1>
         <p className="sub stagger">
-          Web SaaS（给团队用）+ 浏览器扩展（嵌进他们原来的系统）+ CLI（Gemini 批量解析提单 PDF）。零依赖、端到端，全是我一个人用 AI 写出来的——这就是 Delta。
+          说明一下：今天我不现场演示——那套系统跑的是货代公司的真实单据，不能给大家看。我只口述我到底做了什么。
         </p>
       </div>
-      <figure className="figure stagger">
-        <div className="frame">
-          <div className="ph">
-            <span>截图占位：驻场工位 / 提单 PDF 解析成结构化字段的界面</span>
-          </div>
-        </div>
-      </figure>
-      <div className="todo stagger">
-        <b>{`{{待定制·5 现场 demo}}`}</b>
-        <span>若要现场 demo，建议插在这页之后：当场拖一张提单 PDF，实时解析。</span>
-      </div>
+      <ul className="points">
+        <li className="stagger">
+          <span className="lead">Web SaaS。</span>
+          <span className="dim"> 给团队用的提单解析台，上传 PDF 出结构化字段。</span>
+        </li>
+        <li className="stagger">
+          <span className="lead">浏览器扩展。</span>
+          <span className="dim"> 嵌进他们原来的系统里，不替换、不打扰，原地长出 AI 能力。</span>
+        </li>
+        <li className="stagger">
+          <span className="lead">CLI。</span>
+          <span className="dim"> 用 Gemini 批量解析整批提单 PDF。</span>
+        </li>
+      </ul>
+      <p className="quote stagger">
+        零依赖、端到端，全是我一个人用 AI 写出来的——这就是 Delta。
+      </p>
     </div>,
 
     /* ---- S11 · 踩坑反转 (最诚实的一页, 重点段) ---- */
@@ -410,7 +434,31 @@ export default function CoursePage() {
       </p>
     </div>,
 
-    /* ---- S14 · 为什么普通学生反而适合 (全场论点高点) ---- */
+    /* ---- S14 · 第二段经历 · 车队 (FDE 不止货代一个行业, 我还在持续做) ---- */
+    <div className="col" key="s14b">
+      <div className="head">
+        <div className="eyebrow stagger">我的故事 · 第二段，正在进行</div>
+        <h1 className="title stagger">而且这事，我没停——我现在正在给一家车队做 FDE</h1>
+        <p className="sub stagger">
+          说货代，是怕你以为 FDE 只在那一个行业、只是我运气好赶上一次。其实不是。换个完全不同的行业，同一套方法照样成立。
+        </p>
+      </div>
+      <ul className="points">
+        <li className="stagger">
+          <span className="lead">同样先驻场摸需求（Echo）。</span>
+          <span className="dim"> 坐到调度和司机旁边，看他们每天真正卡在哪、最烦哪张表，而不是听老板说“我要个全自动系统”。</span>
+        </li>
+        <li className="stagger">
+          <span className="lead">同样做薄切片、端到端做出来（Delta）。</span>
+          <span className="dim"> 不换他们的系统，先挑一个最痛的小环节，做一个能跑、能验、嵌得进去的东西。</span>
+        </li>
+        <li className="stagger">
+          <span className="dim">货代是第一个佐证，车队是第二个。行业会变，Echo + Delta 这把尺子不变。</span>
+        </li>
+      </ul>
+    </div>,
+
+    /* ---- S15 · 为什么普通学生反而适合 (全场论点高点) ---- */
     <div className="col" key="s14">
       <div className="head">
         <h1 className="title stagger">你手里有三张大厂工程师没有的牌</h1>
@@ -432,10 +480,9 @@ export default function CoursePage() {
           <span className="dim"> 亲戚的厂、楼下的店、同学家的公司——那些天天用 Excel 手工干活的小老板，大厂的人反而进不去。</span>
         </li>
       </ul>
-      <div className="todo stagger">
-        <b>{`{{待定制·4 非名校基调}}`}</b>
-        <span>“分数低只因还没开工，不是因为你不行”——这句的松紧度由讲者最终定。</span>
-      </div>
+      <p className="quote stagger">
+        你跟大厂 P7 的差距，常常不是“你不行”，只是你还没开工。这三张牌，今晚就能开始打。
+      </p>
     </div>,
 
     /* ---- S15 · 诚实泼冷水 (不神化, 守 SKILL 铁律) ---- */
@@ -476,10 +523,9 @@ export default function CoursePage() {
           <span className="dim"> 做出来那一刻，你就从“听过 FDE”变成“做过 FDE”。</span>
         </li>
       </ul>
-      <div className="todo stagger">
-        <b>{`{{待定制·3 听众背景与希望的行动}}`}</b>
-        <span>讲者定：希望听众听完具体去做什么——暑假找现场 / 扫码用 fde-pro 诊断自己 / 加社群。三选一或全要。</span>
-      </div>
+      <p className="quote stagger">
+        我只有一个请求：每个人都去试一次、去做一次、去体验一次 FDE。这个过程里，你可能撞上一个自己的创业想法；就算没有，它对你的简历，也是非常有意义的一件事。
+      </p>
     </div>,
 
     /* ---- S17 · 工具页 fde-pro (降低门槛, CTA 之一) ---- */
@@ -500,13 +546,9 @@ export default function CoursePage() {
           <span className="dim"> redskill install fde-pro</span>
         </li>
       </ul>
-      <figure className="figure stagger">
-        <div className="frame">
-          <div className="ph">
-            <span>截图占位：fde-card 全息卡（总分 + 象限 + 七维迷你可视化）</span>
-          </div>
-        </div>
-      </figure>
+      <p className="sub stagger">
+        它最后会给你一张 fde-card：一个总分、一个象限（土 / 大厂 × Echo / Delta）、七个维度的迷你雷达。诚实，是它唯一的卖点。
+      </p>
     </div>,
 
     /* ---- S18 · 终极金句 + 诚实收尾 (CTA) ---- */
@@ -519,12 +561,9 @@ export default function CoursePage() {
         <p className="sub stagger">
           但说句实话——如果你听完只是觉得“好燃”，回去继续刷题，那 FDE 跟你没关系。这条路只奖励真的下场的人。
         </p>
-        <div className="todo stagger">
-          <b>{`{{待定制·1 核心takeaway · 5 必放金句}}`}</b>
-          <span>
-            备选金句：① 别人嫌脏活，你正好能下场。② 代码越来越便宜，离真实问题越近的人越贵。③ 你缺的不是那张文凭，是还没坐进那间办公室。讲者本人锁一句收尾。
-          </span>
-        </div>
+        <p className="quote stagger">
+          所以把今天这句话带走：未来的程序员，都会变成 FDE，你能管的 scope 只会越来越大；而那份高主动性，没人会发给你，是你自己主动练出来的——软技能、硬技能，都一样。
+        </p>
       </div>
     </div>,
   ];

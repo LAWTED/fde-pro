@@ -57,9 +57,13 @@
   height: 100svh;
   height: 100vh;
   display: flex;
-  align-items: center;
+  /* TOP-ANCHORED: 翻页时标题/正文起始 Y 必须一致, 不能因每页内容高度不同而上下跳。
+     垂直方向锚定到顶部 (align-items:flex-start) + 固定 padding-top 起始线;
+     水平方向仍居中 (justify-content:center) + .col 的 max-width 容器保留。 */
+  align-items: flex-start;
   justify-content: center;
-  padding: clamp(3.2rem, 5vh, 4.4rem) clamp(2rem, 6vw, 6rem);
+  /* 固定的顶部起始线 = 所有页标题对齐的关键; 左右留白保持响应式。 */
+  padding: clamp(4.5rem, 12vh, 7rem) clamp(2rem, 6vw, 6rem) clamp(3rem, 6vh, 4.4rem);
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.55s ease;
@@ -123,6 +127,12 @@
 
 .course-root .col.center .sub {
   max-width: 52ch;
+}
+
+/* inline highlight inside a .sub line (核心 takeaway 一句话) */
+.course-root .sub .hl {
+  font-weight: 600;
+  color: var(--c-color);
 }
 
 /* the spoken-quote line: near-black, slightly larger, stands alone */
@@ -315,28 +325,6 @@
   max-width: 50ch;
 }
 
-/* ---- 待定制 占位 (讲者下周精修) ---- */
-.course-root .todo {
-  margin-top: 0.7rem;
-  display: inline-flex;
-  align-items: flex-start;
-  gap: 0.4rem;
-  font-size: 0.78rem;
-  line-height: 1.35;
-  color: var(--c-muted);
-  border: 1px dashed var(--c-ph-border);
-  background: var(--c-ph-bg);
-  border-radius: 4px;
-  padding: 0.45rem 0.65rem;
-  max-width: 64ch;
-}
-
-.course-root .todo b {
-  font-weight: 600;
-  color: rgba(0, 0, 0, 0.55);
-  white-space: nowrap;
-}
-
 /* ---- progress (右上页码 + 圆点) ---- */
 .course-root .progress {
   position: fixed;
@@ -431,12 +419,12 @@
 
 @media (max-width: 640px) {
   .course-root .slide {
-    padding: 1.8rem 1.4rem;
-    align-items: center;
+    /* 手机同样顶部锚定, 固定 padding-top 保持标题不跳。 */
+    padding: 4.2rem 1.4rem 2.4rem;
+    align-items: flex-start;
   }
   .course-root .col {
     gap: 0.95rem;
-    justify-content: center;
   }
   .course-root .two {
     grid-template-columns: 1fr;
