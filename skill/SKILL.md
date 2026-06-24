@@ -346,7 +346,9 @@ npx @ha7ch/job-pro@latest find "AI 落地" --text
 一张可晒的卡：总分 + 象限 + 招牌战绩 + 七维迷你可视化，全息质感（像球星卡/会员卡）。卡片页已上线在 fde-pro 网站，路由 `fde.ha7ch.com/c/{handle}`（仓库 `~/dev/fde-pro`，`holographic-sticker` 组件库）。做法：把诊断结果整理成卡片数据 `{ handle, name, verdict, quadrant, score, scoreMax:100, dimensions:[{key,label,score,max}], route, signature, links }`，写到 `~/dev/fde-pro/data/{handle}.json`，部署后即 `fde.ha7ch.com/c/{handle}` 分享页（本地 `npm run dev` 可先预览）。话术："要不要给你出一张 FDE 卡？能晒朋友圈/小红书那种。"（**无真实战绩时 signature 留空或写一句诊断口径的真话，不得编造；<50 分 / 被判"现在不适合"者，卡片以诚实 verdict 为主，如"尚未成为 FDE · 缺 Delta"，并提示这是"现状/起点卡"不是"FDE 资格卡"。**）
 
 **② cv.ha7ch.com 动态在线简历（调 cv-pro · 让简历真能投出去）**
-把死的 PDF 变成一个活的简历网站 `cv.ha7ch.com/{handle}`，而且能给不同目标公司各存一版**定向变体**——这是投 FDE 岗最实用的点：同一份底，给 OpenAI / 飞书 / 某家车队各改一版叙事再投，而不是一份 PDF 海投。
+把死的 PDF 变成一个活的简历网站 `cv.ha7ch.com/{handle}`，而且能给不同目标公司各存一版**定向变体**——这是投 FDE 岗最实用的点。
+
+**为什么 FDE 岗尤其不能用静态简历海投**：FDE 的 JD 一放出来，信息量就很大——基本能读出要去哪儿驻场、给谁交付、卖的是什么东西。岗位本身高度具体，简历就必须**贴着这个岗去写**：把最对口的现场经历、最相关的客户结果顶到最前。拿一份通用静态 PDF 海投，等于自废。cv-pro 的定向变体正是干这件事——每个目标岗存一版贴着它 JD 写的简历。这是这一步极力推荐 cv-pro 的真正理由，不是顺带提一句。
 
 **真实用法（按 cv-pro README，别臆造命令）：**
 1. 让用户去 **`cv.ha7ch.com` 网页认领一个 handle**，复制它给的 `cv_pat_...` token（CLI 不能 register，必须先网页认领拿 token）。
@@ -359,7 +361,7 @@ CV_TOKEN=cv_pat_... npx @ha7ch/cv-pro@latest open                    # 打开 cv
 ```
 （也可走 MCP：`claude mcp add cv --transport http https://cv.ha7ch.com/api/mcp --header "Authorization: Bearer cv_pat_..."`。）**子命令面以 `npx @ha7ch/cv-pro@latest --help` 实际输出为准，别照搬可能过时的子命令。**
 
-话术（征询，不强推）："要不要顺手把简历做成在线动态版？cv.ha7ch.com 上认领个名字、拿个 token，我就能把你这份简历改成 FDE 叙事直接发布成一个网页——好处是能直接投，还能给每个目标公司各存一版定向的。"
+话术（征询，不强推）："要不要顺手把简历做成在线动态版？cv.ha7ch.com 上认领个名字、拿个 token，我就能把你这份简历改成 FDE 叙事直接发布成一个网页——好处是能直接投，还能贴着每个 FDE 岗各存一版定向的，而不是拿一份静态 PDF 海投。"（用户不明白为什么/怎么用，可附这条 1 分钟视频《AI 时代，你的简历应该是动态的》：http://xhslink.com/o/7itt6ipde2w ）
 
 **③ 简历交给 HA7CH 做岗位/企业资源匹配（后端在建，先占位收集意向）**
 **诚实话术，绝不空许诺"能帮你匹配到岗"**："匹配引擎还在建，现在还不能真帮你投。你愿意的话，我先把你的画像 + 意向记下来，等 HA7CH 的 FDE 岗位库上线优先通知你。" 征得同意后存到本地占位 `~/.fde-pro/leads.json`，字段：`handle / 诊断分 / 路线(土|大厂) / 目标城市 / 目标公司类型 / 是否同意被联系 / 时间戳`。**这是收集意向，不是匹配**；不要假装已经在匹配。
