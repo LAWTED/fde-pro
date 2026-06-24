@@ -115,7 +115,7 @@ export default function CoursePage() {
         <div className="eyebrow stagger">先把话说在前面</div>
         <h1 className="title stagger">一个“不够格”的本科生</h1>
         <p className="sub stagger">
-          Queen Mary 电信工程本科 → 阿里 / Minimax / 腾讯实习 → 2026 秋 Harvard MDE。
+          北邮本科 → 阿里 2 年正式 + 斯坦福 1 年 RA → 2026 秋 Harvard MDE。
         </p>
       </div>
       <ul className="points">
@@ -268,14 +268,17 @@ export default function CoursePage() {
     <div className="col" key="s14b">
       <div className="head">
         <div className="eyebrow stagger">我的故事 · 第二段，正在进行</div>
-        <h1 className="title stagger">现在，我正在给一家车队做 FDE</h1>
-        <p className="sub stagger">换个完全不同的行业，同一套方法照样成立。</p>
+        <h1 className="title stagger">现在，我在给一支赛车队做 FDE——不驻场也能做</h1>
+        <p className="sub stagger">换个完全不同的行业、换个形态，同一套方法照样成立。</p>
       </div>
       <ul className="points">
-        <li className="stagger">同样先驻场摸需求——坐到调度和司机旁边（Echo）。</li>
-        <li className="stagger">同样挑最痛的小环节，端到端做出来（Delta）。</li>
-        <li className="stagger">行业会变，Echo + Delta 这把尺子不变。</li>
+        <li className="stagger">没驻场，远程帮他们用飞书搭了个知识库。</li>
+        <li className="stagger">酒店后勤、轮胎、赛场天气，各数据源全接进飞书。</li>
+        <li className="stagger">公关、车队经理现在直接在飞书里问。</li>
       </ul>
+      <p className="quote stagger">
+        货代是第一个佐证，赛车队是第二个——换行业、换形态、不驻场，Echo + Delta 这把尺子不变。
+      </p>
     </div>,
 
     /* ---- S15 · 为什么普通学生反而适合 (全场论点高点) ---- */
