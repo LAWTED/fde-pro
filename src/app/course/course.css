@@ -57,13 +57,10 @@
   height: 100svh;
   height: 100vh;
   display: flex;
-  /* TOP-ANCHORED: 翻页时标题/正文起始 Y 必须一致, 不能因每页内容高度不同而上下跳。
-     垂直方向锚定到顶部 (align-items:flex-start) + 固定 padding-top 起始线;
-     水平方向仍居中 (justify-content:center) + .col 的 max-width 容器保留。 */
-  align-items: flex-start;
+  /* 内容垂直居中(讲者要求) */
+  align-items: center;
   justify-content: center;
-  /* 固定的顶部起始线 = 所有页标题对齐的关键; 左右留白保持响应式。 */
-  padding: clamp(4.5rem, 12vh, 7rem) clamp(2rem, 6vw, 6rem) clamp(3rem, 6vh, 4.4rem);
+  padding: clamp(3rem, 6vh, 4.6rem) clamp(2rem, 6vw, 6rem);
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.55s ease;
@@ -419,9 +416,9 @@
 
 @media (max-width: 640px) {
   .course-root .slide {
-    /* 手机同样顶部锚定, 固定 padding-top 保持标题不跳。 */
-    padding: 4.2rem 1.4rem 2.4rem;
-    align-items: flex-start;
+    /* 内容垂直居中(讲者要求) */
+    padding: 2.4rem 1.4rem;
+    align-items: center;
   }
   .course-root .col {
     gap: 0.95rem;

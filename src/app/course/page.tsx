@@ -25,7 +25,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./course.css";
 
-const TOTAL = 20;
+const TOTAL = 18;
 
 function pad(n: number) {
   return (n < 10 ? "0" : "") + n;
@@ -172,72 +172,6 @@ export default function CoursePage() {
           未来的程序员，都会变成 FDE——人的 scope（你能管的事）会越来越大；而高主动性，是要你主动去培养的，软技能、硬技能都一样。
         </b>
       </p>
-    </div>,
-
-    /* ---- S05 · 拆 Echo ---- */
-    <div className="col" key="s05">
-      <div className="head">
-        <div className="eyebrow stagger">拆开第一半 · Echo</div>
-        <h1 className="title stagger">Echo 不是“懂行业”，是敢说“老板，你要的不对”</h1>
-        <p className="sub stagger">
-          大多数人以为摸需求 = 把甲方说的话记下来拆成功能。那是甲方式洞察，方向正好反了。
-        </p>
-      </div>
-      <ul className="points">
-        <li className="stagger">
-          <span className="lead">假需求陷阱：</span>
-          <span className="dim">
-            {" "}
-            老板第一句几乎都是“我要 AI 把所有事自动化”。真 FDE 接下来问的是——哪个环节最痛？谁每天在做？做错了谁挨骂？
-          </span>
-        </li>
-        <li className="stagger">
-          <span className="lead">谁拍板 ≠ 谁在用：</span>
-          <span className="dim">
-            {" "}
-            主管说“这工具我一天就用一小时，没啥用”——别信。真正被解放的是一线高频用户，价值证据去工位旁边找。
-          </span>
-        </li>
-        <li className="stagger">
-          <span className="dim">
-            我在货代公司，老板想要的是“整体换一套 AI+ERP”；和一线坐了几天才发现，他们真正的痛只是“手敲提单太慢、错一单要被追责”。老板要的，和一线痛的，根本不是一回事。
-          </span>
-        </li>
-      </ul>
-    </div>,
-
-    /* ---- S06 · 拆 Delta ---- */
-    <div className="col" key="s06">
-      <div className="head">
-        <div className="eyebrow stagger">拆开第二半 · Delta</div>
-        <h1 className="title stagger">Delta 不是“会写代码”，是“今天就能跑给你看”</h1>
-        <p className="sub stagger">
-          不是规划中、不是 PPT、不是“我出方案让外包做”。是现在、当场、能演示。
-        </p>
-      </div>
-      <ul className="points">
-        <li className="stagger">
-          <span className="lead">端到端：</span>
-          <span className="dim">
-            {" "}
-            真实输入（真单据，不是 toy）→ 处理 → 看得见的输出，全程你自己主导。
-          </span>
-        </li>
-        <li className="stagger">
-          <span className="lead">把 build 甩给外包，正是 FDE 要灭掉的甲方习惯。</span>
-          <span className="dim">
-            {" "}
-            “我负责需求，他们负责实现”这句话一出口，你就退回甲方了。
-          </span>
-        </li>
-        <li className="stagger">
-          <span className="lead">你们比很多大厂工程师更有 Delta 优势：</span>
-          <span className="dim">
-            {" "}
-            你们是 AI 原生的，一个人一个周末就能把一条链路跑通。这在三年前要一个小团队。
-          </span>
-        </li>
-      </ul>
     </div>,
 
     /* ---- S07 · 机会论 (撞"我的机会在哪") ---- */
